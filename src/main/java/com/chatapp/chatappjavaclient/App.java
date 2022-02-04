@@ -19,6 +19,7 @@ import java.net.Socket;
 public class App extends Application {
 
     public static Scene scene;
+    public static String username;
 
     @Override
     public void start(Stage stage) throws IOException {

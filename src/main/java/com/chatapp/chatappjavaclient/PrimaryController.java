@@ -13,7 +13,6 @@ public class PrimaryController {
 
     @FXML
     private void switchToSecondary() throws IOException {
-        //App.setRoot("secondary");
        Socket clientSocket = new Socket("localhost", 3335);
        DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
        BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -32,5 +31,7 @@ public class PrimaryController {
        String dataString = data.toString();
        
        outToServer.writeBytes(dataString + "\n");
+       App.username = username;
+       App.setRoot("secondary");
     }
 }
