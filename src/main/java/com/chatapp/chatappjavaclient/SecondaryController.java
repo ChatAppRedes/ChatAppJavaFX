@@ -3,11 +3,16 @@ package com.chatapp.chatappjavaclient;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class SecondaryController {
 
     @FXML
     public Label helloMessageLabel;
+    
+    @FXML
+    public TextField messageField;
+    
     
     @FXML
     public void initialize() {
@@ -18,6 +23,10 @@ public class SecondaryController {
     @FXML
     private void switchToPrimary() throws IOException {
         App.setRoot("primary");
-       
+    }
+    
+    @FXML
+    private void sendMessageToServer() throws IOException {
+        System.out.println(messageField.textProperty().get());
     }
 }

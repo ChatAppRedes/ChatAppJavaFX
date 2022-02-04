@@ -20,6 +20,7 @@ public class App extends Application {
 
     public static Scene scene;
     public static String username;
+    public static ServerConnection serverConnection;
 
     @Override
     public void start(Stage stage) throws IOException {

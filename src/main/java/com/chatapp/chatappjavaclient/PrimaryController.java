@@ -13,10 +13,8 @@ public class PrimaryController {
 
     @FXML
     private void switchToSecondary() throws IOException {
-       Socket clientSocket = new Socket("localhost", 3335);
-       DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-       BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-       
+       App.serverConnection = new ServerConnection();
+        
        JSONObject data = new JSONObject();
        
        TextField usernameField = (TextField) App.scene.lookup("#usernameField");
@@ -30,7 +28,7 @@ public class PrimaryController {
        data.put("username", username);
        String dataString = data.toString();
        
-       outToServer.writeBytes(dataString + "\n");
+       App.serverConnection.outToServer.writeBytes(dataString + "\n");
        App.username = username;
        App.setRoot("secondary");
     }
