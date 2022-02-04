@@ -4,6 +4,7 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.json.JSONObject;
 
 public class SecondaryController {
 
@@ -27,6 +28,13 @@ public class SecondaryController {
     
     @FXML
     private void sendMessageToServer() throws IOException {
-        System.out.println(messageField.textProperty().get());
+        String message = messageField.textProperty().get();
+        System.out.println(message);
+        JSONObject messageToServer = new JSONObject();
+        messageToServer.put("username", App.username);
+        messageToServer.put("message", message);
+        String finalMessage = messageToServer.toString() + '\n';
+        App.serverConnection.outToServer.writeBytes(finalMessage);
+        messageField.setText("");
     }
 }
