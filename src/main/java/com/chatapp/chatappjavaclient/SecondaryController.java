@@ -23,6 +23,11 @@ public class SecondaryController {
     
     @FXML
     private void switchToPrimary() throws IOException {
+        JSONObject messageToServer = new JSONObject();
+        messageToServer.put("username", App.username);
+        messageToServer.put("message", "desconectar");
+        String finalMessage = messageToServer.toString() + '\n';
+        App.serverConnection.outToServer.writeBytes(finalMessage);
         App.setRoot("primary");
     }
     
