@@ -1,7 +1,6 @@
 package com.chatapp.chatappjavaclient;
 
 import java.io.IOException;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -36,7 +35,16 @@ public class SecondaryController implements IMessageHandler {
     }
    
     public void handleNewMessage(String newMessage) {
-        this.chatContentAsString += "\n" + newMessage;
+        JSONObject messageAsJsonObject = new JSONObject(newMessage);
+        String username = (String) messageAsJsonObject.get("username");
+        String message = (String) messageAsJsonObject.get("message");
+        String finalMessage = username + ": " + message;
+        if (message.equals("quit")) {
+            finalMessage = username + " saiu!";
+        } else if (message.equals("welcome")) {
+            finalMessage = "Bem vindo(a), " + username;
+        }
+        this.chatContentAsString += "\n" + finalMessage;
     }
     
     private void createClientReceiver() {
@@ -50,7 +58,7 @@ public class SecondaryController implements IMessageHandler {
     private void switchToPrimary() throws IOException {
         JSONObject messageToServer = new JSONObject();
         messageToServer.put("username", App.username);
-        messageToServer.put("message", "desconectar");
+        messageToServer.put("message", "quit");
         String finalMessage = messageToServer.toString() + '\n';
         App.serverConnection.outToServer.writeBytes(finalMessage);
         // Melhorar
@@ -62,6 +70,10 @@ public class SecondaryController implements IMessageHandler {
     private void sendMessageToServer() throws IOException {
         String message = messageField.textProperty().get();
         System.out.println(message);
+        if (message == "quit") {
+            this.switchToPrimary();
+            return;
+        }
         JSONObject messageToServer = new JSONObject();
         messageToServer.put("username", App.username);
         messageToServer.put("message", message);
