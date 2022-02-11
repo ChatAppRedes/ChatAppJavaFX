@@ -16,7 +16,7 @@
             <Image url="file:/Users/ruifernandes/NetBeansProjects/ChatAppJavaClient/src/assets/parrotchatlogo.png" />
          </image>
       </ImageView>
-      <TextField fx:id="usernameField" alignment="CENTER" maxWidth="250.0" prefHeight="28.0" prefWidth="187.0" promptText="Username">
+      <TextField fx:id="usernameField" alignment="CENTER" maxWidth="250.0" onAction="#switchToSecondary" prefHeight="28.0" prefWidth="187.0" promptText="Username">
          <font>
             <Font size="14.0" />
          </font>

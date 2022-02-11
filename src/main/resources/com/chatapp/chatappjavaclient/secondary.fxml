@@ -35,7 +35,7 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="messageField" prefHeight="36.0" prefWidth="372.0" promptText="Digite sua mensagem" />
+            <TextField fx:id="messageField" onAction="#sendMessageToServer" prefHeight="36.0" prefWidth="372.0" promptText="Digite sua mensagem" />
             <Button mnemonicParsing="false" onAction="#sendMessageToServer" prefHeight="36.0" prefWidth="36.0" style="-fx-background-color: #000;">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
