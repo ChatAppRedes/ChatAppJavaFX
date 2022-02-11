@@ -20,8 +20,6 @@ public class SecondaryController implements IMessageHandler {
     @FXML
     public TextField messageField;
     
-    public Thread clientReceiverThread;
-    
     @FXML
     public void initialize() {
         System.out.println("Segunda tela");
@@ -34,10 +32,7 @@ public class SecondaryController implements IMessageHandler {
         return this.chatContentAsString;
     }
    
-    public void handleNewMessage(String newMessage) {
-        JSONObject messageAsJsonObject = new JSONObject(newMessage);
-        String username = (String) messageAsJsonObject.get("username");
-        String message = (String) messageAsJsonObject.get("message");
+    public void handleNewMessage(String username, String message) {
         String finalMessage = username + ": " + message;
         if (message.equals("quit")) {
             finalMessage = username + " saiu!";
@@ -48,10 +43,10 @@ public class SecondaryController implements IMessageHandler {
     }
     
     private void createClientReceiver() {
-        ClientReceiverTask task = new ClientReceiverTask(this);
-        this.clientReceiverThread = new Thread(task);
-        this.clientReceiverThread.start();
-        this.chatContent.textProperty().bind(task.messageProperty());
+        App.clientReceiverTask = new ClientReceiverTask(this, App.username);
+        App.clientReceiverThread = new Thread(App.clientReceiverTask);
+        App.clientReceiverThread.start();
+        this.chatContent.textProperty().bind(App.clientReceiverTask.messageProperty());
     }
     
     @FXML
@@ -61,8 +56,6 @@ public class SecondaryController implements IMessageHandler {
         messageToServer.put("message", "quit");
         String finalMessage = messageToServer.toString() + '\n';
         App.serverConnection.outToServer.writeBytes(finalMessage);
-        // Melhorar
-        clientReceiverThread.interrupt();
         App.setRoot("primary");
     }
     
@@ -70,8 +63,7 @@ public class SecondaryController implements IMessageHandler {
     private void sendMessageToServer() throws IOException {
         String message = messageField.textProperty().get();
         System.out.println(message);
-        if (message == "quit") {
-            this.switchToPrimary();
+        if (message.equals("quit")) {
             return;
         }
         JSONObject messageToServer = new JSONObject();

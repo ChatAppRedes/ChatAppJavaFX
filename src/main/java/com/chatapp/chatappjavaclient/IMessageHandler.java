@@ -10,5 +10,5 @@ package com.chatapp.chatappjavaclient;
  */
 public interface IMessageHandler {
     public String getAllMessages();
-    public void handleNewMessage(String newMessage);
+    public void handleNewMessage(String username, String message);
 }

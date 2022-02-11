@@ -15,12 +15,14 @@ import org.json.JSONObject;
 public class ClientReceiverTask extends Task<Void> {
 
     public boolean isReceiverActive;
+    public String currentUsername;
     //abstract void notifyNewMessage(String newMessage);
 
     public IMessageHandler messageHandler;
     
-    public ClientReceiverTask(IMessageHandler messageHandler) {
+    public ClientReceiverTask(IMessageHandler messageHandler, String currentUsername) {
         this.messageHandler = messageHandler;
+        this.currentUsername = currentUsername;
     }
     
     public void run() {
@@ -40,11 +42,20 @@ public class ClientReceiverTask extends Task<Void> {
                 System.out.println("Loop thread");
                 String newMessage = clientReceiverConnection.inFromServer.readLine();
                 System.out.println("From server: " + newMessage);
-                
-                this.messageHandler.handleNewMessage(newMessage);
+                JSONObject messageAsJsonObject = new JSONObject(newMessage);
+                String username = (String) messageAsJsonObject.get("username");
+                String message = (String) messageAsJsonObject.get("message");
+                if (message.equals("quit") && username.equals(this.currentUsername)) {
+                    break;
+                }
+                this.messageHandler.handleNewMessage(username, message);
                 String allMessages = this.messageHandler.getAllMessages();
                 this.updateMessage(allMessages);
             }
+            System.out.println("Finish loop");
+            data.put("message", "quit");
+            dataString = data.toString();
+            clientReceiverConnection.outToServer.writeBytes(dataString + "\n");
         } catch (Exception e) {
             this.isReceiverActive = false;
         }
