@@ -4,6 +4,7 @@ import java.io.IOException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import org.json.JSONObject;
 
@@ -13,7 +14,7 @@ public class SecondaryController implements IMessageHandler {
     public Label helloMessageLabel;
     
     @FXML
-    public Label chatContent;
+    public TextArea chatContent;
     
     public String chatContentAsString = "";
     
