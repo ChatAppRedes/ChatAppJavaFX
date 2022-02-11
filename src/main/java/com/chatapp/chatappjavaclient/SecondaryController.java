@@ -20,6 +20,9 @@ public class SecondaryController implements IMessageHandler {
     @FXML
     public TextField messageField;
     
+    public Thread clientReceiverThread;
+    public ClientReceiverTask clientReceiverTask;
+    
     @FXML
     public void initialize() {
         System.out.println("Segunda tela");
@@ -43,10 +46,10 @@ public class SecondaryController implements IMessageHandler {
     }
     
     private void createClientReceiver() {
-        App.clientReceiverTask = new ClientReceiverTask(this, App.username);
-        App.clientReceiverThread = new Thread(App.clientReceiverTask);
-        App.clientReceiverThread.start();
-        this.chatContent.textProperty().bind(App.clientReceiverTask.messageProperty());
+        this.clientReceiverTask = new ClientReceiverTask(this, App.username);
+        this.clientReceiverThread = new Thread(this.clientReceiverTask);
+        this.clientReceiverThread.start();
+        this.chatContent.textProperty().bind(this.clientReceiverTask.messageProperty());
     }
     
     @FXML

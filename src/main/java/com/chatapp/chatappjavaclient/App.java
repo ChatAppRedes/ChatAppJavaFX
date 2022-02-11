@@ -23,9 +23,6 @@ public class App extends Application {
     public static String username;
     public static ServerConnection serverConnection;
     
-    public static Thread clientReceiverThread;
-    public static ClientReceiverTask clientReceiverTask;
-
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("primary"), 640, 480);
