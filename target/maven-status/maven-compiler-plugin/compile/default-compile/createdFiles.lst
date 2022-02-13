@@ -2,3 +2,6 @@ com/chatapp/chatappjavaclient/SecondaryController.class
 com/chatapp/chatappjavaclient/PrimaryController.class
 module-info.class
 com/chatapp/chatappjavaclient/App.class
+com/chatapp/chatappjavaclient/ClientReceiverTask.class
+com/chatapp/chatappjavaclient/ServerConnection.class
+com/chatapp/chatappjavaclient/IMessageHandler.class
