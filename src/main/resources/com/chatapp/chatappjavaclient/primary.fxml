@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="88.0" fitWidth="283.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="file:/Users/ruifernandes/NetBeansProjects/ChatAppJavaClient/src/assets/parrotchatlogo.png" />
+            <Image url="https://github.com/ChatAppRedes/ChatAppJavaFX/blob/main/src/assets/parrotchatlogo.png?raw=true" />
          </image>
       </ImageView>
       <TextField fx:id="usernameField" alignment="CENTER" maxWidth="250.0" onAction="#switchToSecondary" prefHeight="28.0" prefWidth="187.0" promptText="Username">

@@ -40,7 +40,7 @@
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:/Users/ruifernandes/NetBeansProjects/ChatAppJavaClient/src/assets/send.png" />
+                        <Image url="https://github.com/ChatAppRedes/ChatAppJavaFX/blob/main/src/assets/send.png?raw=true" />
                      </image>
                   </ImageView>
                </graphic>
